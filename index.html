@@ -1,115 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FedEx SAV Operations Board</title>
+
+<title>SAV Ramp Operations Board</title>
 
 <style>
+
 :root{
-    --fedex-purple:#4D148C;
-    --fedex-orange:#FF6600;
-    --bg:#111111;
-    --card:#1c1c1c;
-    --border:#333333;
-    --text:#ffffff;
-    --green:#00d26a;
-    --blue:#36a3ff;
+    --purple:#4D148C;
+    --orange:#FF6600;
+    --green:#30e07b;
     --yellow:#ffd700;
-    --red:#ff4c4c;
+    --red:#ff5555;
+    --blue:#5ab2ff;
 }
 
 *{
     box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 body{
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    padding:20px;
+
+    font-family:'Segoe UI', Arial, sans-serif;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.15),
+            rgba(0,0,0,.25)
+        ),
+        url('operations-background.jpg');
+
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+
+    color:white;
+
+    width:100vw;
+    height:100vh;
+
+    overflow:hidden;
+
 }
 
+/******************************************
+HEADER
+******************************************/
+
 .header{
-    background:var(--fedex-purple);
-    padding:20px;
+
+    position:absolute;
+
+    top:18px;
+    left:40px;
+    right:40px;
+
     display:flex;
     justify-content:space-between;
     align-items:center;
-    border-radius:10px;
+
 }
 
-.header h1{
-    margin:0;
-    font-size:32px;
+.title{
+
+    font-size:34px;
+    font-weight:700;
+    text-shadow:0 0 10px black;
+
 }
 
 .clock{
-    font-size:28px;
-    font-weight:bold;
+
+    font-size:24px;
+    font-weight:700;
+
 }
 
-.hero{
-    margin-top:15px;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:10px;
-    padding:20px;
+/******************************************
+NEXT FLIGHT HERO
+******************************************/
+
+.next-panel{
+
+    position:absolute;
+
+    top:160px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:72%;
+
     text-align:center;
+
+    background:rgba(0,0,0,.35);
+
+    backdrop-filter:blur(8px);
+
+    border-radius:18px;
+
+    padding:30px;
+
+    border:1px solid rgba(255,255,255,.2);
+
 }
 
-.hero-title{
-    color:var(--fedex-orange);
-    font-size:22px;
+.next-title{
+
+    color:var(--orange);
+
+    font-size:24px;
     font-weight:bold;
+
 }
 
-.hero-flight{
-    font-size:40px;
-    margin-top:10px;
-}
+.next-flight{
 
-.hero-countdown{
-    font-size:70px;
-    color:var(--yellow);
-    font-weight:bold;
-    margin-top:10px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns: 3fr 1fr;
-    gap:15px;
     margin-top:15px;
+
+    font-size:54px;
+    font-weight:700;
+
 }
 
-.card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:10px;
+.next-countdown{
+
+    margin-top:10px;
+
+    font-size:90px;
+
+    font-weight:800;
+
+    color:var(--yellow);
+
+}
+
+/******************************************
+FLIGHT TABLE
+******************************************/
+
+.flight-card{
+
+    position:absolute;
+
+    left:25px;
+    bottom:45px;
+
+    width:63%;
+    height:370px;
+
+    background:rgba(0,0,0,.45);
+
+    border-radius:18px;
+
+    backdrop-filter:blur(8px);
+
+    border:1px solid rgba(255,255,255,.15);
+
     padding:15px;
+
 }
 
-.card h2{
-    margin-top:0;
-    color:var(--fedex-orange);
+.section-title{
+
+    color:var(--orange);
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+
 }
 
 table{
+
     width:100%;
+
     border-collapse:collapse;
+
 }
 
 th{
-    background:var(--fedex-purple);
+
+    background:rgba(77,20,140,.80);
+
     padding:12px;
+
+    font-size:14px;
+
 }
 
 td{
-    padding:12px;
+
+    padding:10px;
+
     text-align:center;
-    border-bottom:1px solid #333;
+
+    border-bottom:1px solid rgba(255,255,255,.1);
+
+    font-size:15px;
+
 }
 
 .arrival{
@@ -122,119 +220,230 @@ td{
     font-weight:bold;
 }
 
-.metric{
-    text-align:center;
-    margin-bottom:15px;
+.success{
+    color:var(--green);
 }
 
-.metric-title{
-    font-size:18px;
-}
-
-.metric-value{
-    font-size:48px;
-    font-weight:bold;
+.warning{
     color:var(--yellow);
+}
+
+.danger{
+    color:var(--red);
+}
+
+/******************************************
+RIGHT SIDEBAR
+******************************************/
+
+.sidebar{
+
+    position:absolute;
+
+    right:25px;
+    bottom:45px;
+
+    width:32%;
+
+    height:370px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+.card{
+
+    background:rgba(0,0,0,.45);
+
+    backdrop-filter:blur(8px);
+
+    border-radius:18px;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    padding:15px;
+
+}
+
+.metrics{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+
+}
+
+.metric-number{
+
+    text-align:center;
+
+    color:var(--yellow);
+
+    font-size:46px;
+
+    font-weight:bold;
+
+    margin-top:10px;
+
 }
 
 .weather{
-    line-height:1.8;
+
     font-size:18px;
+    line-height:1.8;
+
 }
+
+/******************************************
+TICKER
+******************************************/
 
 .ticker{
-    margin-top:15px;
-    background:var(--fedex-orange);
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    background:rgba(255,102,0,.92);
+
     color:black;
-    padding:12px;
+
     overflow:hidden;
-    white-space:nowrap;
+
     font-weight:bold;
+
+    padding:10px;
+
 }
 
-.ticker span{
+.ticker-track{
+
     display:inline-block;
+
     padding-left:100%;
-    animation:scroll 20s linear infinite;
+
+    white-space:nowrap;
+
+    animation:scroll 30s linear infinite;
+
 }
 
 @keyframes scroll{
-    from{transform:translateX(0);}
-    to{transform:translateX(-100%);}
+
+    from{
+        transform:translateX(0%);
+    }
+
+    to{
+        transform:translateX(-100%);
+    }
+
 }
 
-.count-low{
-    color:var(--red);
-    font-weight:bold;
-}
-
-.count-medium{
-    color:var(--yellow);
-    font-weight:bold;
-}
-
-.count-high{
-    color:var(--green);
-    font-weight:bold;
-}
 </style>
 </head>
+
 <body>
 
 <div class="header">
-    <h1>FEDEX EXPRESS SAV OPERATIONS BOARD</h1>
-    <div id="clock" class="clock"></div>
-</div>
 
-<div class="hero">
-    <div class="hero-title">NEXT FLIGHT</div>
-    <div class="hero-flight" id="nextFlight">Loading...</div>
-    <div class="hero-countdown" id="nextCountdown">00:00:00</div>
-</div>
-
-<div class="grid">
-
-    <div class="card">
-        <h2>Flight Operations</h2>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Flight</th>
-                    <th>Type</th>
-                    <th>Scheduled</th>
-                    <th>Countdown</th>
-                    <th>MST</th>
-                    <th>HWT</th>
-                </tr>
-            </thead>
-
-            <tbody id="flightTable"></tbody>
-        </table>
+    <div class="title">
+        SAV RAMP OPERATIONS CENTER
     </div>
 
-    <div>
+    <div id="clock" class="clock">
+        Loading...
+    </div>
 
-        <div class="card metric">
-            <div class="metric-title">TOTAL MST</div>
-            <div id="totalMST" class="metric-value">0</div>
-        </div>
+</div>
 
-        <div class="card metric">
-            <div class="metric-title">TOTAL HWT</div>
-            <div id="totalHWT" class="metric-value">0</div>
+<div class="next-panel">
+
+    <div class="next-title">
+        NEXT FLIGHT
+    </div>
+
+    <div id="nextFlight" class="next-flight">
+        Loading...
+    </div>
+
+    <div id="nextCountdown" class="next-countdown">
+        00:00:00
+    </div>
+
+</div>
+
+<div class="flight-card">
+
+    <div class="section-title">
+        FLIGHT OPERATIONS
+    </div>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Flight</th>
+                <th>Type</th>
+                <th>Scheduled</th>
+                <th>Countdown</th>
+                <th>MST</th>
+                <th>HWT</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody id="flightTable"></tbody>
+
+    </table>
+
+</div>
+
+<div class="sidebar">
+
+    <div class="metrics">
+
+        <div class="card">
+
+            <div class="section-title">
+                TOTAL MST
+            </div>
+
+            <div id="totalMST" class="metric-number">
+                0
+            </div>
+
         </div>
 
         <div class="card">
-            <h2>Weather</h2>
 
-            <div class="weather">
-                ☁ Cloudy<br>
-                High: 75°F<br>
-                Low: 67°F<br>
-                Wind: 12 MPH<br>
-                Rain: 2%
+            <div class="section-title">
+                TOTAL HWT
             </div>
+
+            <div id="totalHWT" class="metric-number">
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="section-title">
+            WEATHER
+        </div>
+
+        <div id="weather" class="weather">
+            Loading weather...
         </div>
 
     </div>
@@ -242,60 +451,80 @@ td{
 </div>
 
 <div class="ticker">
-    <span>
-        SAFETY FIRST • FX1339 DEPARTS 22:15 • FX1386 DEPARTS 23:00 • CHECK GSE • A1 BYPASS ACTIVE • RAMP SAFETY IS EVERYONE'S RESPONSIBILITY
-    </span>
+
+    <div class="ticker-track">
+
+        SAFETY FIRST • FX1339 DEPARTURE 22:15 • FX1386 DEPARTURE 23:00 • CHECK GSE • VERIFY CHOCKS AND CONES • RAMP SAFETY IS EVERYONE'S RESPONSIBILITY
+
+    </div>
+
 </div>
 
 <script>
 
-/*
- DAILY UPDATE SECTION
- Only adjust these values each day.
-*/
+/*********************************************
+  DAILY UPDATE SECTION
+*********************************************/
+
+const today = new Date().toISOString().split('T')[0];
 
 const flights = [
+
 {
     flight:"FX1539",
     type:"ARRIVAL",
-    time:"2026-10-06T17:15:00",
+    scheduled:`${today}T17:15:00`,
     mst:12,
-    hwt:4
+    hwt:4,
+    status:"ON TIME"
 },
+
 {
     flight:"FX1586",
     type:"ARRIVAL",
-    time:"2026-10-06T18:05:00",
+    scheduled:`${today}T18:05:00`,
     mst:8,
-    hwt:2
+    hwt:2,
+    status:"ON TIME"
 },
+
 {
     flight:"FX1339",
     type:"DEPARTURE",
-    time:"2026-10-06T22:15:00",
+    scheduled:`${today}T22:15:00`,
     mst:null,
-    hwt:null
+    hwt:null,
+    status:"SCHEDULED"
 },
+
 {
     flight:"FX1386",
     type:"DEPARTURE",
-    time:"2026-10-06T23:00:00",
+    scheduled:`${today}T23:00:00`,
     mst:null,
-    hwt:null
+    hwt:null,
+    status:"SCHEDULED"
 }
+
 ];
 
-/* CLOCK */
+/*********************************************
+ CLOCK
+*********************************************/
 
 function updateClock(){
-    document.getElementById('clock').innerText =
-        new Date().toLocaleString();
+
+    document.getElementById("clock").innerHTML =
+    new Date().toLocaleString();
+
 }
 
 setInterval(updateClock,1000);
 updateClock();
 
-/* COUNTDOWN FORMAT */
+/*********************************************
+ COUNTDOWN
+*********************************************/
 
 function formatCountdown(ms){
 
@@ -303,80 +532,154 @@ function formatCountdown(ms){
         return "COMPLETED";
     }
 
-    const h = Math.floor(ms/3600000);
-    const m = Math.floor((ms%3600000)/60000);
-    const s = Math.floor((ms%60000)/1000);
+    let hours = Math.floor(ms/3600000);
+    let minutes = Math.floor((ms%3600000)/60000);
+    let seconds = Math.floor((ms%60000)/1000);
 
-    return (
-        String(h).padStart(2,"0") + ":" +
-        String(m).padStart(2,"0") + ":" +
-        String(s).padStart(2,"0")
-    );
+    return `${String(hours).padStart(2,"0")}:${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
 }
 
-/* MAIN UPDATE */
+/*********************************************
+ FLIGHT BOARD
+*********************************************/
 
 function updateBoard(){
 
     const now = new Date();
 
-    const tbody = document.getElementById('flightTable');
+    const table =
+    document.getElementById('flightTable');
 
-    tbody.innerHTML = "";
+    table.innerHTML='';
 
-    let totalMST = 0;
-    let totalHWT = 0;
+    let mstTotal=0;
+    let hwtTotal=0;
 
-    flights.forEach(f => {
+    flights.forEach(f=>{
 
-        totalMST += f.mst || 0;
-        totalHWT += f.hwt || 0;
+        mstTotal += f.mst || 0;
+        hwtTotal += f.hwt || 0;
 
-        const flightTime = new Date(f.time);
-        const diff = flightTime - now;
+        const diff =
+        new Date(f.scheduled)-now;
 
-        let cls = "count-high";
+        let cls="success";
 
-        if(diff < 1800000){
-            cls = "count-medium";
-        }
+        if(diff < 1800000) cls="warning";
+        if(diff < 900000) cls="danger";
 
-        if(diff < 900000){
-            cls = "count-low";
-        }
-
-        tbody.innerHTML += `
+        table.innerHTML += `
         <tr>
-            <td>${f.flight}</td>
-            <td class="${f.type === 'ARRIVAL' ? 'arrival' : 'departure'}">${f.type}</td>
-            <td>${flightTime.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</td>
-            <td class="${cls}">${formatCountdown(diff)}</td>
-            <td>${f.mst ?? '-'}</td>
-            <td>${f.hwt ?? '-'}</td>
+
+        <td>${f.flight}</td>
+
+        <td class="${f.type==='ARRIVAL'?'arrival':'departure'}">
+            ${f.type}
+        </td>
+
+        <td>
+            ${new Date(f.scheduled).toLocaleTimeString([],{
+            hour:'2-digit',
+            minute:'2-digit'
+            })}
+        </td>
+
+        <td class="${cls}">
+            ${formatCountdown(diff)}
+        </td>
+
+        <td>${f.mst ?? '-'}</td>
+
+        <td>${f.hwt ?? '-'}</td>
+
+        <td>${f.status}</td>
+
         </tr>`;
     });
 
-    document.getElementById('totalMST').innerText = totalMST;
-    document.getElementById('totalHWT').innerText = totalHWT;
+    document.getElementById("totalMST").innerHTML = mstTotal;
+    document.getElementById("totalHWT").innerHTML = hwtTotal;
 
     const upcoming = flights
-        .filter(f => new Date(f.time) > now)
-        .sort((a,b) => new Date(a.time) - new Date(b.time))[0];
+    .filter(f=>new Date(f.scheduled) > now)
+    .sort((a,b)=>
+    new Date(a.scheduled)-new Date(b.scheduled))[0];
 
     if(upcoming){
 
-        document.getElementById('nextFlight').innerText =
-            `${upcoming.flight} ${upcoming.type}`;
+        document.getElementById("nextFlight").innerHTML =
+        `${upcoming.flight} ${upcoming.type}`;
 
-        document.getElementById('nextCountdown').innerText =
-            formatCountdown(new Date(upcoming.time) - now);
+        document.getElementById("nextCountdown").innerHTML =
+        formatCountdown(
+        new Date(upcoming.scheduled)-now);
+
     }
+
 }
 
 setInterval(updateBoard,1000);
 updateBoard();
 
+/*********************************************
+ WEATHER
+*********************************************/
+
+async function loadWeather(){
+
+try{
+
+const response =
+await fetch(
+'https://api.open-meteo.com/v1/forecast?latitude=32.0809&longitude=-81.0912&current=temperature_2m,relative_humidity_2m,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America/New_York'
+);
+
+const data = await response.json();
+
+document.getElementById('weather').innerHTML = `
+
+<div style="font-size:44px;font-weight:bold;">
+${Math.round(data.current.temperature_2m)}°F
+</div>
+
+<div>
+High: ${Math.round(data.daily.temperature_2m_max[0])}°
+</div>
+
+<div>
+Low: ${Math.round(data.daily.temperature_2m_min[0])}°
+</div>
+
+<div>
+Wind: ${Math.round(data.current.wind_speed_10m)} MPH
+</div>
+
+<div>
+Humidity: ${data.current.relative_humidity_2m}%
+</div>
+
+<div>
+Rain Chance: ${data.daily.precipitation_probability_max[0]}%
+</div>
+
+`;
+
+}catch{
+
+document.getElementById("weather").innerHTML =
+"Weather unavailable";
+
+}
+
+}
+
+loadWeather();
+setInterval(loadWeather,900000);
+
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
