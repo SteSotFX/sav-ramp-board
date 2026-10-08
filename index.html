@@ -4,267 +4,357 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SAV Flight Operations Board</title>
+<title>SAV Ramp Operations Board</title>
 
 <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-}
-
 body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    color:white;
     background:
-        linear-gradient(
-            rgba(0,0,0,.60),
-            rgba(0,0,0,.60)
-        ),
+        linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.55)),
         url('operations-background.jpg');
-
     background-size:cover;
     background-position:center;
-    background-repeat:no-repeat;
     background-attachment:fixed;
-
-    color:white;
-    min-height:100vh;
 }
 
 .header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-
     padding:20px 40px;
-
-    background:rgba(0,0,0,.4);
+    font-size:2rem;
+    font-weight:bold;
     border-bottom:3px solid #ff6600;
 }
 
-.title{
-    font-size:2rem;
-    font-weight:bold;
-    color:white;
+#clock{
+    font-size:1.8rem;
 }
 
-.clock{
-    font-size:2rem;
-    font-weight:bold;
-    color:#00d9ff;
-}
+.nextFlight{
+    width:80%;
+    margin:25px auto;
 
-.updated{
-    text-align:center;
-    padding:12px;
-    color:#ddd;
-    font-size:1rem;
-}
+    padding:30px;
 
-/* NEXT EVENT PANEL */
+    background:rgba(0,0,0,.65);
+    backdrop-filter:blur(6px);
 
-.next-event-panel{
-    width:90%;
-    max-width:850px;
-
-    margin:15px auto 25px auto;
-
-    background:rgba(25,25,25,.85);
-
-    border:3px solid #ff6600;
-    border-radius:15px;
-
-    padding:25px;
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:20px;
 
     text-align:center;
-
-    backdrop-filter:blur(4px);
-
-    box-shadow:0 0 25px rgba(255,102,0,.4);
 }
 
-.next-event-title{
-    font-size:1.2rem;
-    color:#cccccc;
-    letter-spacing:3px;
+.nextFlight h2{
+    color:#ff6600;
+    margin-bottom:15px;
 }
 
-.next-flight{
-    font-size:3rem;
-    font-weight:bold;
-    margin-top:10px;
-}
-
-.next-type{
-    font-size:1.5rem;
-    margin-top:10px;
-}
-
-.next-countdown{
+#nextFlightNumber{
     font-size:4rem;
     font-weight:bold;
-    color:#00d9ff;
-    margin-top:15px;
 }
 
-.next-time{
-    margin-top:10px;
-    color:#ddd;
-    font-size:1.2rem;
-}
-
-/* FLIGHT CARDS */
-
-.board{
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:25px;
-
-    padding:25px;
-}
-
-.flight-card{
-    background:rgba(25,25,25,.82);
-
-    border:2px solid #ff6600;
-    border-radius:12px;
-
-    padding:25px;
-
-    text-align:center;
-
-    backdrop-filter:blur(3px);
-}
-
-.flight-number{
-    font-size:2rem;
-    color:#ff6600;
-    margin-bottom:12px;
-    font-weight:bold;
-}
-
-.flight-time{
-    font-size:1.2rem;
-    margin-bottom:15px;
-}
-
-.status{
-    font-size:1.3rem;
-    font-weight:bold;
-    margin-bottom:15px;
-}
-
-.countdown{
-    font-size:2.3rem;
-    font-weight:bold;
-}
-
-.arrived,
-.departed{
-    color:#00ff66;
-}
-
-.enroute{
-    color:#00bfff;
-}
-
-.preparing{
+#nextCountdown{
+    font-size:5rem;
     color:#ffd700;
+    font-weight:bold;
+}
+
+.main{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+
+    padding:20px;
+}
+
+.panel{
+    background:rgba(0,0,0,.65);
+    backdrop-filter:blur(6px);
+
+    border-radius:20px;
+    padding:20px;
+}
+
+.panel-title{
+    color:#ff6600;
+    font-size:1.8rem;
+    margin-bottom:15px;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#4d148c;
+    padding:12px;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.arrival{
+    color:#42ff8c;
+    font-weight:bold;
+}
+
+.departure{
+    color:#61beff;
+    font-weight:bold;
+}
+
+.sidebar{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.metric{
+    background:rgba(0,0,0,.65);
+    border-radius:20px;
+    padding:20px;
+}
+
+.metric-title{
+    color:#ff6600;
+    font-size:1.5rem;
+    font-weight:bold;
+}
+
+.metric-value{
+    font-size:4rem;
+    text-align:center;
+    color:#ffd700;
+    font-weight:bold;
+}
+
+.weatherTemp{
+    font-size:3.5rem;
+    font-weight:bold;
+    margin:15px 0;
+}
+
+.weatherStatus{
+    color:#ffd700;
+    font-weight:bold;
+    margin:10px 0;
 }
 
 .footer{
-    text-align:center;
-    padding:20px;
-    color:#ccc;
-    font-size:.9rem;
+    position:fixed;
+    bottom:0;
+    width:100%;
+    background:#ff6600;
+    color:black;
+    font-weight:bold;
+    padding:10px;
+    overflow:hidden;
 }
 
-@media(max-width:900px){
+.ticker{
+    white-space:nowrap;
+    display:inline-block;
+    animation:scroll 30s linear infinite;
+}
 
-    .board{
-        grid-template-columns:1fr;
-    }
-
-    .next-countdown{
-        font-size:3rem;
-    }
-
-    .next-flight{
-        font-size:2.2rem;
-    }
+@keyframes scroll{
+    from {transform:translateX(100%);}
+    to {transform:translateX(-100%);}
 }
 
 </style>
 </head>
-
 <body>
 
 <div class="header">
-    <div class="title">
-        SAV FLIGHT OPERATIONS BOARD
-    </div>
-
-    <div id="clock" class="clock">
-        00:00:00
-    </div>
+    <div>SAV RAMP OPERATIONS BOARD</div>
+    <div id="clock"></div>
 </div>
 
-<div id="lastUpdated" class="updated"></div>
+<div style="text-align:center;margin-top:10px;" id="lastUpdated"></div>
 
-<!-- NEXT EVENT -->
+<div class="nextFlight">
 
-<div class="next-event-panel">
+    <h2>NEXT FLIGHT</h2>
 
-    <div class="next-event-title">
-        NEXT EVENT
-    </div>
+    <div id="nextFlightNumber">FX1539 ARRIVAL</div>
 
-    <div id="nextFlight" class="next-flight">
-        FX1539
-    </div>
-
-    <div id="nextType" class="next-type">
-        ARRIVAL
-    </div>
-
-    <div id="nextCountdown" class="next-countdown">
-        00:00:00
-    </div>
-
-    <div id="nextTime" class="next-time">
-        ETA 17:15
-    </div>
+    <div id="nextCountdown">00:00:00</div>
 
 </div>
 
-<!-- FLIGHTS -->
+<div class="main">
 
-<div class="board">
+    <div class="panel">
 
-    <div class="flight-card">
-        <div class="flight-number">FX1539</div>
-        <div class="flight-time">ETA: <span id="time1539"></span></div>
-        <div id="status1539" class="status"></div>
-        <div id="countdown1539" class="countdown"></div>
+        <div class="panel-title">FLIGHT TIMES</div>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Flight</th>
+                    <th>Type</th>
+                    <th>Scheduled</th>
+                    <th>Countdown</th>
+                    <th>MST</th>
+                    <th>BYP</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>FX1539</td>
+                    <td class="arrival">ARRIVAL</td>
+                    <td id="time1539"></td>
+                    <td id="count1539"></td>
+                    <td id="mst1539"></td>
+                    <td id="byp1539"></td>
+                    <td id="status1539"></td>
+                </tr>
+
+                <tr>
+                    <td>FX1586</td>
+                    <td class="arrival">ARRIVAL</td>
+                    <td id="time1586"></td>
+                    <td id="count1586"></td>
+                    <td id="mst1586"></td>
+                    <td id="byp1586"></td>
+                    <td id="status1586"></td>
+                </tr>
+
+                <tr>
+                    <td>FX1339</td>
+                    <td class="departure">DEPARTURE</td>
+                    <td>22:15</td>
+                    <td id="count1339"></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td id="status1339"></td>
+                </tr>
+
+                <tr>
+                    <td>FX1386</td>
+                    <td class="departure">DEPARTURE</td>
+                    <td>23:00</td>
+                    <td id="count1386"></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td id="status1386"></td>
+                </tr>
+
+            </tbody>
+        </table>
+
     </div>
 
-    <div class="flight-card">
-        <div class="flight-number">FX1586</div>
-        <div class="flight-time">ETA: <span id="time1586"></span></div>
-        <div id="status1586" class="status"></div>
-        <div id="countdown1586" class="countdown"></div>
+    <div class="sidebar">
+
+        <div class="metric">
+            <div class="metric-title">TOTAL MST</div>
+            <div id="totalMST" class="metric-value"></div>
+        </div>
+
+        <div class="metric">
+            <div class="metric-title">TOTAL BYP</div>
+            <div id="totalBYP" class="metric-value"></div>
+        </div>
+
+        <div class="metric">
+
+            <div class="metric-title">WEATHER</div>
+
+            <div id="weatherCondition"></div>
+
+            <div id="weatherTemp"
+                 class="weatherTemp">
+            </div>
+
+            <div id="weatherOps"
+                 class="weatherStatus">
+            </div>
+
+            <div id="weatherWind"></div>
+
+        </div>
+
     </div>
 
-    <div class="flight-card">
-        <div class="flight-number">FX1339</div>
-        <div class="flight-time">DEP: <span id="time1339"></span></div>
-        <div id="status1339" class="status"></div>
-        <div id="countdown1339" class="countdown"></div>
-    </div>
+</div>
 
-    <div class="flight-card">
-        <div class="flight-number">FX1386</div>
-        <div class="flight-time">DEP: <span id="time1386"></span></div>
-        <div id="status1386" class="status"></div>
-        <div 
+<div class="footer">
+    <div class="ticker">
+        SAFETY ABOVE ALL • FX1339 DEPARTURE 22:15 • FX1386 DEPARTURE 23:00 • CHECK GSE • VERIFY CHOCKS AND CONES • RAMP SAFETY IS EVERYONE'S RESPONSIBILITY
+    </div>
+</div>
+
+<script>
+
+const DAILY_UPDATE = {
+
+    FX1539_ETA:"17:15",
+    FX1586_ETA:"18:05",
+
+    FX1539_MST:12,
+    FX1539_BYP:4,
+
+    FX1586_MST:8,
+    FX1586_BYP:2,
+
+    LAST_UPDATED:"16:42"
+};
+
+document.getElementById("time1539").textContent =
+    DAILY_UPDATE.FX1539_ETA;
+
+document.getElementById("time1586").textContent =
+    DAILY_UPDATE.FX1586_ETA;
+
+document.getElementById("mst1539").textContent =
+    DAILY_UPDATE.FX1539_MST;
+
+document.getElementById("byp1539").textContent =
+    DAILY_UPDATE.FX1539_BYP;
+
+document.getElementById("mst1586").textContent =
+    DAILY_UPDATE.FX1586_MST;
+
+document.getElementById("byp1586").textContent =
+    DAILY_UPDATE.FX1586_BYP;
+
+document.getElementById("totalMST").textContent =
+    DAILY_UPDATE.FX1539_MST +
+    DAILY_UPDATE.FX1586_MST;
+
+document.getElementById("totalBYP").textContent =
+    DAILY_UPDATE.FX1539_BYP +
+    DAILY_UPDATE.FX1586_BYP;
+
+document.getElementById("lastUpdated").textContent =
+    "Updated: " + DAILY_UPDATE.LAST_UPDATED;
+
+function updateClock(){
+    document.getElementById("clock").textContent =
+    new Date().toLocaleString();
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+</script>
+
+</body>
+</html>
