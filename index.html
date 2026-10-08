@@ -210,6 +210,7 @@ td{
                     <th>Countdown</th>
                     <th>MST</th>
                     <th>BYP</th>
+                    <th>HWT</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -223,6 +224,7 @@ td{
                     <td id="count1539"></td>
                     <td id="mst1539"></td>
                     <td id="byp1539"></td>
+                    <td id="hwt1539"></td>
                     <td id="status1539"></td>
                 </tr>
 
@@ -233,6 +235,7 @@ td{
                     <td id="count1586"></td>
                     <td id="mst1586"></td>
                     <td id="byp1586"></td>
+                    <td id="hwt1586"></td>
                     <td id="status1586"></td>
                 </tr>
 
@@ -243,6 +246,7 @@ td{
                     <td id="count1339"></td>
                     <td>-</td>
                     <td>-</td>
+                    <td>-</td>
                     <td id="status1339"></td>
                 </tr>
 
@@ -251,6 +255,7 @@ td{
                     <td class="departure">DEPARTURE</td>
                     <td>23:00</td>
                     <td id="count1386"></td>
+                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                     <td id="status1386"></td>
@@ -305,19 +310,20 @@ td{
 
 const DAILY_UPDATE = {
 
-    FX1539_ETA:"06:21",
-    FX1586_ETA:"06:43",
+    FX1539_ETA:"17:15",
+    FX1586_ETA:"18:05",
 
-    FX1539_MST:3,
-    FX1539_BYP:8,
+    FX1539_MST:12,
+    FX1539_BYP:4,
+    FX1539_HWT:3,
 
-    FX1586_MST:1,
-    FX1586_BYP:1,
+    FX1586_MST:8,
+    FX1586_BYP:2,
+    FX1586_HWT:1,
 
-    LAST_UPDATED:"06:00"
+    LAST_UPDATED:"16:42"
 
 };
-
 // ======================================
 // INITIAL VALUES
 // ======================================
@@ -331,12 +337,18 @@ document.getElementById("time1586").textContent =
 document.getElementById("mst1539").textContent =
     DAILY_UPDATE.FX1539_MST;
 
+document.getElementById("hwt1539").textContent =
+    DAILY_UPDATE.FX1539_HWT;
+    
 document.getElementById("byp1539").textContent =
     DAILY_UPDATE.FX1539_BYP;
 
 document.getElementById("mst1586").textContent =
     DAILY_UPDATE.FX1586_MST;
 
+document.getElementById("hwt1586").textContent =
+    DAILY_UPDATE.FX1586_HWT;
+    
 document.getElementById("byp1586").textContent =
     DAILY_UPDATE.FX1586_BYP;
 
