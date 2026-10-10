@@ -82,14 +82,26 @@ function getTimeParts(timeStr){
 function updateCountdowns(){
 
     const t1539 = getTimeParts(DAILY_UPDATE.FX1539_ETA);
+    const t1586 = getTimeParts(DAILY_UPDATE.FX1586_ETA);
+    const t1339 = getTimeParts(DAILY_UPDATE.FX1339_ACTUAL);
+    const t1386 = getTimeParts(DAILY_UPDATE.FX1386_ACTUAL);
 
     const fx1539 = t1539
         ? getNextFlightTime(t1539.hour, t1539.minute,[2,3,4,5,6])
         : null;
 
-    const fx1586 = getNextFlightTime(6,34,[2,3,4,5,6]);
-    const fx1339 = getNextFlightTime(22,25,[1,2,3,4,5]);
-    const fx1386 = getNextFlightTime(23,10,[2,3,4,5]);
+    const fx1586 = t1586
+        ? getNextFlightTime(t1586.hour, t1586.minute,[2,3,4,5,6])
+        : null;
+
+    const fx1339 = t1339
+        ? getNextFlightTime(t1339.hour, t1339.minute,[1,2,3,4,5])
+        : null;
+
+    const fx1386 = t1386
+        ? getNextFlightTime(t1386.hour, t1386.minute,[2,3,4,5])
+        : null;
+
     count1539.innerText = cd(fx1539);
     count1586.innerText = cd(fx1586);
     count1339.innerText = cd(fx1339);
@@ -105,7 +117,10 @@ function updateCountdowns(){
     let best = null;
     let bestDiff = Infinity;
 
-    flights.forEach(f=>{
+    flights.forEach(f => {
+
+        if(!f[1]) return;
+
         const diff = f[1] - new Date();
 
         if(diff > 0 && diff < bestDiff){
@@ -117,7 +132,11 @@ function updateCountdowns(){
     if(best){
         nextFlightNumber.innerText = best[0];
         nextCountdown.innerText = cd(best[1]);
+    } else {
+        nextFlightNumber.innerText = 'NO FLIGHTS';
+        nextCountdown.innerText = '--:--:--';
     }
 }
+``
 render(); updateClock(); updateCountdowns(); setInterval(updateClock,1000); setInterval(updateCountdowns,1000);
 </script></body></html>
