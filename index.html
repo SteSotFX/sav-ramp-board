@@ -21,7 +21,7 @@ body{font-family:Arial,Helvetica,sans-serif;color:white;background:linear-gradie
 <div class='sidebar'><div class='metric'><div class='metric-title'>TOTAL MST</div><div id='totalMST' class='metric-value'></div></div><div class='metric'><div class='metric-title'>TOTAL BYP</div><div id='totalBYP' class='metric-value'></div></div><div class='metric'><div class='metric-title'>TOTAL HWT</div><div id='totalHWT' class='metric-value'></div></div></div></div>
 <div class='footer'>SAFETY ABOVE ALL • VERIFY CHOCKS AND CONES • CHECK GSE • FX1339 PUSH 22:15 • FX1386 PUSH 23:00</div>
 <script>
-const DAILY_UPDATE={FX1539_ETA:'06:21',FX1586_ETA:'CANCELED',FX1339_ACTUAL:'22:25',FX1386_ACTUAL:'CANCELED',FX1539_MST:4,FX1539_BYP:8,FX1539_HWT:2,FX1586_MST:0,FX1586_BYP:0,FX1586_HWT:0};
+const DAILY_UPDATE={FX1539_ETA:'06:21',FX1586_ETA:'CANCELED',FX1339_ACTUAL:'22:25',FX1386_ACTUAL:'CANCELED',FX1539_MST:0,FX1539_BYP:0,FX1539_HWT:0,FX1586_MST:0,FX1586_BYP:0,FX1586_HWT:0};
 const SCHEDULED={FX1539:{arrival:'06:19'},FX1586:{arrival:'06:34'},FX1339:{push:'22:15',depart:'22:25'},FX1386:{push:'23:00',depart:'23:10'}};
 function mins(t){let p=t.split(':');return parseInt(p[0])*60+parseInt(p[1])}
 function arrivalStatus(a,s){if(a==='CANCELLED'||a==='CANCELED')return ['CANCELLED','cancelled'];let am=mins(a),sm=mins(s);if(am<sm)return ['EARLY','early'];if(am>sm+20)return ['DELAYED','delayed'];return ['ON TIME','ontime']}
