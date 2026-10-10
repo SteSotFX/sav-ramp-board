@@ -65,14 +65,31 @@ function cd(target){
     return `${String(hours).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
 }
 function render(){eta1539.innerText=DAILY_UPDATE.FX1539_ETA;eta1586.innerText=DAILY_UPDATE.FX1586_ETA;dep1339.innerText=DAILY_UPDATE.FX1339_ACTUAL;dep1386.innerText=DAILY_UPDATE.FX1386_ACTUAL;mst1539.innerText=DAILY_UPDATE.FX1539_MST;mst1586.innerText=DAILY_UPDATE.FX1586_MST;byp1539.innerText=DAILY_UPDATE.FX1539_BYP;byp1586.innerText=DAILY_UPDATE.FX1586_BYP;hwt1539.innerText=DAILY_UPDATE.FX1539_HWT;hwt1586.innerText=DAILY_UPDATE.FX1586_HWT;totalMST.innerText=DAILY_UPDATE.FX1539_MST+DAILY_UPDATE.FX1586_MST;totalBYP.innerText=DAILY_UPDATE.FX1539_BYP+DAILY_UPDATE.FX1586_BYP;totalHWT.innerText=DAILY_UPDATE.FX1539_HWT+DAILY_UPDATE.FX1586_HWT;let s=arrivalStatus(DAILY_UPDATE.FX1539_ETA,SCHEDULED.FX1539.arrival);status1539.innerText=s[0];status1539.className=s[1];s=arrivalStatus(DAILY_UPDATE.FX1586_ETA,SCHEDULED.FX1586.arrival);status1586.innerText=s[0];status1586.className=s[1];s=departureStatus(DAILY_UPDATE.FX1339_ACTUAL,SCHEDULED.FX1339.push,SCHEDULED.FX1339.depart);status1339.innerText=s[0];status1339.className=s[1];s=departureStatus(DAILY_UPDATE.FX1386_ACTUAL,SCHEDULED.FX1386.push,SCHEDULED.FX1386.depart);status1386.innerText=s[0];status1386.className=s[1];}
+
+function getTimeParts(timeStr){
+    if(!timeStr || timeStr === 'CANCELED' || timeStr === 'CANCELLED'){
+        return null;
+    }
+
+    const parts = timeStr.split(':');
+
+    return {
+        hour: parseInt(parts[0]),
+        minute: parseInt(parts[1])
+    };
+}
+    
 function updateCountdowns(){
 
-    const fx1539 = getNextFlightTime(6,19,[2,3,4,5,6]);
-    const fx1586 = getNextFlightTime(6,34,[2,3,4,5,6]);
+    const t1539 = getTimeParts(DAILY_UPDATE.FX1539_ETA);
 
+    const fx1539 = t1539
+        ? getNextFlightTime(t1539.hour, t1539.minute,[2,3,4,5,6])
+        : null;
+
+    const fx1586 = getNextFlightTime(6,34,[2,3,4,5,6]);
     const fx1339 = getNextFlightTime(22,25,[1,2,3,4,5]);
     const fx1386 = getNextFlightTime(23,10,[2,3,4,5]);
-
     count1539.innerText = cd(fx1539);
     count1586.innerText = cd(fx1586);
     count1339.innerText = cd(fx1339);
